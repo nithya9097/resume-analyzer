@@ -7,4 +7,4 @@ app.include_router(analyze.router)
 
 @app.get("/")
 def home():
-    return {"message": "Resume Analyzer API is running 🚀"}
+    return {"message": "Resume Analyzer API is running "}

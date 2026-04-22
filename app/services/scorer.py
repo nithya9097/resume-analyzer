@@ -8,7 +8,7 @@ SKILL_KEYWORDS = [
     "tensorflow", "pytorch", "power bi", "excel"
 ]
 
-# 🔹 1. Extract skills
+#1. Extract skills
 def extract_skills(text):
     doc = nlp(text.lower())
 
@@ -26,7 +26,7 @@ def extract_skills(text):
     return list(found_skills)
 
 
-# 🔹 2. Skill gap analysis (THIS MUST EXIST)
+#2. Skill gap analysis (THIS MUST EXIST)
 def skill_gap_analysis(resume_text, job_desc):
     resume_skills = extract_skills(resume_text)
     job_skills = extract_skills(job_desc)
@@ -37,7 +37,7 @@ def skill_gap_analysis(resume_text, job_desc):
     return matched, missing
 
 
-# 🔹 3. ATS score
+#3. ATS score
 def calculate_ats_score(similarity, matched_skills, missing_skills, resume_text):
     total_skills = len(matched_skills) + len(missing_skills)
     skill_score = (len(matched_skills) / total_skills) * 100 if total_skills > 0 else 0
@@ -88,25 +88,25 @@ def calculate_section_score(section_result):
 def generate_suggestions(matched, missing, sections, resume_text):
     suggestions = []
 
-    # 🔹 Missing skills
+    #Missing skills
     if missing:
         suggestions.append(f"Add missing skills: {', '.join(missing)}")
 
-    # 🔹 Section improvements
+    #Section improvements
     for section, status in sections.items():
         if status == "missing":
             suggestions.append(f"Include a {section.capitalize()} section in your resume")
 
-    # 🔹 Resume length check
+    #Resume length check
     word_count = len(resume_text.split())
     if word_count < 150:
         suggestions.append("Increase resume content with more details and achievements")
 
-    # 🔹 Achievements suggestion
+    #Achievements suggestion
     if "project" in resume_text.lower():
         suggestions.append("Add measurable achievements (e.g., improved accuracy by 20%)")
 
-    # 🔹 General improvement
+    #General improvement
     if len(matched) < 3:
         suggestions.append("Improve keyword alignment with job description")
 
